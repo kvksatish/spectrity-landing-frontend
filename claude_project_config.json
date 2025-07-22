@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "contex7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-server-contex7"
+      ],
+      "env": {
+        "CONTEX7_API_KEY": "${CONTEX7_API_KEY}"
+      }
+    },
+    "taskmaster": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-server-taskmaster"
+      ]
+    }
+  }
+}
