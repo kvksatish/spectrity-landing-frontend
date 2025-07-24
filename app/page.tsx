@@ -2,6 +2,7 @@
 
 import Hero from "@/components/Hero";
 import ScientificStack from "@/components/ScientificStack";
+import MarketInsight from "@/components/MarketInsight";
 import dynamic from 'next/dynamic';
 
 const RotatingEarth = dynamic(() => import("@/components/RotatingEarth"), {
@@ -115,6 +116,9 @@ export default function Home() {
 
       {/* Scientific Evaluation Stack Section */}
       <ScientificStack />
+
+      {/* Market Insight Agent Section */}
+      <MarketInsight />
 
       {/* CTA Section */}
       <section className="py-20 px-4 bg-gradient-to-br from-blue-50 to-purple-50">

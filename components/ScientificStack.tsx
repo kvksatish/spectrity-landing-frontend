@@ -82,11 +82,11 @@ export default function ScientificStack() {
               {/* Professional header section */}
               <div className="mb-8 group cursor-pointer">
                 <div className="mb-4">
-                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wider transition-colors duration-300 group-hover:text-gray-800">
-                    From Target to Therapeutic — Fully In Silico
+                  <p className="text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider transition-colors duration-300 group-hover:text-gray-800">
+                    Custom-Tuned Models Assess Every Molecule — From Target to Therapeutic
                   </p>
                   <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 transition-all duration-300 group-hover:text-gray-700">
-                    🧠 Spectrity's Scientific Evaluation Stack
+                    Spectrity&apos;s EvalStack
                   </h2>
                 </div>
                 <div className="h-px bg-gradient-to-r from-gray-400 to-transparent max-w-md transition-all duration-300 group-hover:max-w-full group-hover:from-gray-600"></div>
@@ -103,7 +103,7 @@ export default function ScientificStack() {
         </div>
 
         {/* Progress Bar */}
-        <div className="mt-16 mb-12 max-w-5xl mx-auto">
+        <div className="mt-16 mb-12 max-w-5xl mx-auto px-4 md:px-0">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full h-1 bg-gray-200 rounded-full"></div>
@@ -119,9 +119,9 @@ export default function ScientificStack() {
                 <button
                   key={step.id}
                   onClick={() => setActiveStep(step.id)}
-                  className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold transition-all duration-300 ${
+                  className={`w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center text-sm md:text-lg font-bold transition-all duration-300 ${
                     activeStep >= step.id
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg transform scale-110'
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg transform scale-105 md:scale-110'
                       : 'bg-white border-2 border-gray-300 text-gray-500 hover:border-gray-400'
                   }`}
                 >
@@ -133,31 +133,31 @@ export default function ScientificStack() {
         </div>
 
         {/* Active Step Display */}
-        <div className="mb-16 max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-            <div className="flex items-start gap-6">
-              <div className="flex-shrink-0">
-                <div className={`w-20 h-20 rounded-2xl bg-${stackSteps[activeStep - 1].color}-100 p-5 flex items-center justify-center`}>
-                  <span className="text-3xl">{stackSteps[activeStep - 1].icon}</span>
+        <div className="mb-16 max-w-4xl mx-auto px-4">
+          <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
+            <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6">
+              <div className="flex-shrink-0 mx-auto md:mx-0">
+                <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-${stackSteps[activeStep - 1].color}-100 p-4 md:p-5 flex items-center justify-center`}>
+                  <span className="text-2xl md:text-3xl">{stackSteps[activeStep - 1].icon}</span>
                 </div>
               </div>
-              <div className="flex-1">
+              <div className="flex-1 text-center md:text-left">
                 <div className="mb-4">
-                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
+                  <span className="text-xs md:text-sm font-semibold text-gray-500 uppercase tracking-wider">
                     Step {activeStep} of 8
                   </span>
-                  <h3 className="text-2xl font-bold text-gray-900 mt-1">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mt-1">
                     {stackSteps[activeStep - 1].title}
                   </h3>
                 </div>
-                <p className="text-gray-700 leading-relaxed mb-4">
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-4">
                   {stackSteps[activeStep - 1].description}
                 </p>
                 <div className="inline-flex items-center gap-2">
-                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 md:w-5 md:h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  <span className={`font-semibold text-gray-900 bg-${stackSteps[activeStep - 1].color}-50 px-3 py-1 rounded-full text-sm`}>
+                  <span className={`font-semibold text-gray-900 bg-${stackSteps[activeStep - 1].color}-50 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm`}>
                     {stackSteps[activeStep - 1].highlight}
                   </span>
                 </div>
@@ -167,26 +167,26 @@ export default function ScientificStack() {
         </div>
 
         {/* All Steps Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-          {stackSteps.map((step, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-6xl mx-auto px-4">
+          {stackSteps.map((step) => (
             <div
               key={step.id}
               onClick={() => setActiveStep(step.id)}
-              className={`p-4 rounded-xl border cursor-pointer transition-all duration-300 ${
+              className={`p-3 md:p-4 rounded-xl border cursor-pointer transition-all duration-300 ${
                 activeStep === step.id
-                  ? 'bg-gradient-to-br from-blue-50 to-purple-50 border-blue-300 shadow-md transform scale-105'
+                  ? 'bg-gradient-to-br from-blue-50 to-purple-50 border-blue-300 shadow-md transform scale-102 md:scale-105'
                   : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-sm'
               }`}
             >
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl">{step.icon}</span>
-                <span className={`text-sm font-bold ${
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <span className="text-xl md:text-2xl">{step.icon}</span>
+                <span className={`text-xs md:text-sm font-bold ${
                   activeStep === step.id ? 'text-blue-600' : 'text-gray-400'
                 }`}>
                   Step {step.id}
                 </span>
               </div>
-              <h4 className={`text-sm font-semibold ${
+              <h4 className={`text-xs md:text-sm font-semibold line-clamp-2 ${
                 activeStep === step.id ? 'text-gray-900' : 'text-gray-700'
               }`}>
                 {step.title}
@@ -196,38 +196,38 @@ export default function ScientificStack() {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-center gap-4 mt-12">
+        <div className="flex justify-center gap-3 md:gap-4 mt-8 md:mt-12 px-4">
           <button
             onClick={() => setActiveStep(Math.max(1, activeStep - 1))}
             disabled={activeStep === 1}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+            className={`px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all duration-300 ${
               activeStep === 1
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                 : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
             }`}
           >
-            Previous Step
+            Previous
           </button>
           <button
             onClick={() => setActiveStep(Math.min(8, activeStep + 1))}
             disabled={activeStep === 8}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+            className={`px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all duration-300 ${
               activeStep === 8
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                 : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg'
             }`}
           >
-            Next Step
+            Next
           </button>
         </div>
 
         {/* Bottom Note */}
-        <div className="mt-16 p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border border-gray-200 max-w-3xl mx-auto">
-          <p className="text-center text-gray-800 font-medium">
-            <svg className="inline-block w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="mt-12 md:mt-16 mx-4 p-3 md:p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border border-gray-200 max-w-3xl md:mx-auto">
+          <p className="text-center text-gray-800 font-medium text-sm md:text-base">
+            <svg className="inline-block w-4 h-4 md:w-5 md:h-5 text-blue-600 mr-1 md:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
-            All processes are <span className="text-blue-600 font-semibold">automated</span> and <span className="text-purple-600 font-semibold">AI-powered</span> for maximum efficiency
+            <span className="text-blue-600 font-semibold">Custom-tuned models</span> assess every molecule • <span className="text-purple-600 font-semibold">Reducing years to months</span>
           </p>
         </div>
       </div>

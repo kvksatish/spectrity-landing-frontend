@@ -385,7 +385,10 @@ export default function RotatingEarth() {
           pointsData={pointsData}
           pointLat={(d: any) => d.lat}
           pointLng={(d: any) => d.lng}
-          pointColor={() => '#3b82f6'}
+          pointColor={(d: any) => {
+            const colors = ['#3b82f6', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#6366f1'];
+            return colors[Math.floor(d.population / 3000000) % colors.length];
+          }}
           pointAltitude={(d: any) => Math.min(Math.sqrt(d.population) * 0.00008 + 0.05, 0.25)}
           pointRadius={(d: any) => Math.sqrt(d.population) * 0.0002 + 0.5}
           labelsData={labelsData}
