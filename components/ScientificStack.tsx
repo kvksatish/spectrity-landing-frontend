@@ -70,22 +70,22 @@ const stackSteps = [
 export default function ScientificStack() {
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
       <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <div className="mb-8 group cursor-pointer inline-block">
             <div className="mb-4">
               <p className="text-sm font-medium text-gray-500 uppercase tracking-wider transition-colors duration-300 group-hover:text-gray-800">
                 Custom-Tuned Models Assess Every Molecule — From Target to Therapeutic
               </p>
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 transition-all duration-300 group-hover:text-gray-700">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 transition-all duration-300 group-hover:text-gray-700">
                 Spectrity's EvalStack
               </h2>
             </div>
             <div className="h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent max-w-md mx-auto transition-all duration-300 group-hover:max-w-full group-hover:via-gray-600"></div>
           </div>
           
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto px-4 sm:px-0">
             <span className="font-semibold">Eight automated stages.</span> <span className="font-semibold">From target to therapeutic.</span>
           </p>
           
@@ -97,7 +97,7 @@ export default function ScientificStack() {
         </div>
 
         {/* Hover-based Steps Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto">
           {stackSteps.map((step) => (
             <div
               key={step.id}
@@ -114,11 +114,11 @@ export default function ScientificStack() {
                 </div>
               </div>
               
-              <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors">
                 {step.title}
               </h3>
               
-              <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-4">
+              <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-4">
                 {step.description}
               </p>
               

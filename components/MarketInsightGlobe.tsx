@@ -8,6 +8,8 @@ import Globe from "react-globe.gl";
 export default function MarketInsightGlobe() {
   const globeEl = useRef<any>(null);
   const [dimensions, setDimensions] = useState({ width: 700, height: 700 });
+  const [webglError, setWebglError] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   // Generate paths distributed globally based on population density
   const pathsData = useMemo(() => {
@@ -101,6 +103,28 @@ export default function MarketInsightGlobe() {
   }, []);
 
   useEffect(() => {
+    setIsClient(true);
+    
+    // Check WebGL support
+    const checkWebGLSupport = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) {
+          setWebglError(true);
+          return false;
+        }
+        return true;
+      } catch (e) {
+        setWebglError(true);
+        return false;
+      }
+    };
+
+    if (!checkWebGLSupport()) {
+      return;
+    }
+
     // Function to handle resize
     const handleResize = () => {
       const width = window.innerWidth;
@@ -124,22 +148,58 @@ export default function MarketInsightGlobe() {
     window.addEventListener('resize', handleResize);
 
     if (globeEl.current) {
-      // Auto-rotate the globe
-      globeEl.current.controls().autoRotate = true;
-      globeEl.current.controls().autoRotateSpeed = 1;
-      
-      // Disable user controls for a cleaner look
-      globeEl.current.controls().enableZoom = false;
-      globeEl.current.controls().enablePan = false;
-      
-      // Set initial position
-      globeEl.current.pointOfView({ lat: 0, lng: 0, altitude: 2 });
+      try {
+        // Auto-rotate the globe
+        globeEl.current.controls().autoRotate = true;
+        globeEl.current.controls().autoRotateSpeed = 1;
+        
+        // Disable user controls for a cleaner look
+        globeEl.current.controls().enableZoom = false;
+        globeEl.current.controls().enablePan = false;
+        
+        // Set initial position
+        globeEl.current.pointOfView({ lat: 0, lng: 0, altitude: 2 });
+      } catch (error) {
+        console.error('Market Insight Globe initialization failed:', error);
+        setWebglError(true);
+      }
     }
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Fallback component for when WebGL is not supported
+  const FallbackGlobe = () => (
+    <div className="relative w-full h-full flex items-center justify-center" style={{ backgroundColor: '#fcfcfd' }}>
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="text-center p-8">
+          <div className="w-48 h-48 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-400 via-purple-500 to-indigo-500 flex items-center justify-center shadow-2xl">
+            <div className="w-40 h-40 rounded-full bg-gradient-to-br from-purple-500 via-purple-600 to-indigo-600 flex items-center justify-center">
+              <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">Market Intelligence Analytics</h3>
+          <p className="text-gray-600 text-sm">
+            AI-driven market insights and competitive intelligence
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Don't render anything on server side
+  if (!isClient) {
+    return <FallbackGlobe />;
+  }
+
+  // Show fallback if WebGL is not supported
+  if (webglError) {
+    return <FallbackGlobe />;
+  }
 
   return (
     <div className="relative w-full h-full flex items-center justify-center" style={{ backgroundColor: '#fcfcfd' }}>
@@ -253,6 +313,17 @@ export default function MarketInsightGlobe() {
           pathTransitionDuration={0}
           width={dimensions.width}
           height={dimensions.height}
+          onGlobeReady={() => {
+            // Additional error handling when globe is ready
+            try {
+              if (globeEl.current) {
+                globeEl.current.pointOfView({ lat: 0, lng: 0, altitude: 2 });
+              }
+            } catch (error) {
+              console.error('Market Insight Globe ready error:', error);
+              setWebglError(true);
+            }
+          }}
         />
       </div>
     </div>

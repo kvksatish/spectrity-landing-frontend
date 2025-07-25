@@ -73,34 +73,45 @@ export default function BuildTogether() {
   const coreModules = [
     {
       name: "SpectraScan Agent",
-      description: "AI-driven discovery across 10,000+ daily papers and 214M+ protein structures"
+      description: "AI-driven discovery across 10,000+ daily papers and 214M+ protein structures",
+      navigateTo: "#spectrascan"
     },
     {
       name: "Spectrity's EvalStack", 
-      description: "Multi-agent system for evaluating biological viability, chemical feasibility, and clinical translatability"
+      description: "Multi-agent system for evaluating biological viability, chemical feasibility, and clinical translatability",
+      navigateTo: "#evalstack"
     },
     {
       name: "SpectraInsight Agent",
-      description: "Market intelligence analyzing deal flow, competitor pipelines, and strategic opportunities"
+      description: "Market intelligence analyzing deal flow, competitor pipelines, and strategic opportunities",
+      navigateTo: "#spectrainsight"
     },
     {
       name: "Spectrity's Translational Readiness Agent",
-      description: "Forward-facing simulations assessing execution risk and commercial fit"
+      description: "Forward-facing simulations assessing execution risk and commercial fit",
+      navigateTo: "#translational"
     }
   ];
 
+  const handleModuleClick = (navigateTo: string) => {
+    const element = document.querySelector(navigateTo);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section className="py-24 px-4 bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 bg-gradient-to-br from-gray-50 via-white to-blue-50">
       <div className="mx-auto max-w-7xl">
         {/* Main Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 px-4 sm:px-0">
             🤝 Let's Build the Next Generation of Therapeutics — Together
           </h2>
-          <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
             We're looking to collaborate with scientists, biotech teams, and pharma innovators who want to move faster — with clarity, confidence, and computational precision.
           </p>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto mt-4">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto mt-4 px-4 sm:px-0">
             If you're exploring programmable therapies, AI-first R&D, or novel therapeutic modalities — we'd love to connect.
           </p>
         </div>
@@ -189,23 +200,39 @@ export default function BuildTogether() {
         <div className="border-t border-gray-200 my-16"></div>
 
         {/* Core Modules Summary */}
-        <div className="mb-20">
-          <h3 className="text-3xl font-bold text-gray-900 text-center mb-12">
+        <div className="mb-12 sm:mb-16 lg:mb-20">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 text-center mb-4 px-4 sm:px-0">
             🔬 Spectrity's Core Modules
           </h3>
+          <p className="text-center text-sm sm:text-base text-gray-600 mb-8 sm:mb-12 px-4 sm:px-0">
+            <span className="inline-flex items-center gap-1">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+              </svg>
+              Click any module to explore its capabilities in detail
+            </span>
+          </p>
           
-          <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+          <div id="contact-form" className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-6xl mx-auto">
             {coreModules.map((module, index) => (
               <div 
                 key={index}
-                className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 group cursor-pointer"
+                onClick={() => handleModuleClick(module.navigateTo)}
+                className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-4 sm:p-6 border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 group cursor-pointer active:scale-95 hover:scale-105"
               >
-                <h4 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-700 transition-colors">
-                  {module.name}
-                </h4>
-                <p className="text-gray-600 text-sm">
-                  {module.description}
-                </p>
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-700 transition-colors">
+                      {module.name}
+                    </h4>
+                    <p className="text-gray-600 text-xs sm:text-sm">
+                      {module.description}
+                    </p>
+                  </div>
+                  <svg className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-all duration-300 group-hover:translate-x-1 flex-shrink-0 ml-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               </div>
             ))}
           </div>

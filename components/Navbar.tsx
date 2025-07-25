@@ -1,16 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import navbarData from "@/data/navbar.json";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { logo, navigation, cta, styles } = navbarData;
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className={styles.navbar}>
+    <nav className={`${styles.navbar} transition-all duration-300 ${
+      scrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg' : ''
+    }`}>
       <div className={styles.container}>
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -44,7 +55,10 @@ export default function Navbar() {
                   href={item.href} 
                   className={styles.navLink.base}
                 >
-                  {item.label}
+                  <span className="relative">
+                    {item.label}
+                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 group-hover:w-full"></span>
+                  </span>
                 </Link>
               ))}
               <Link href={cta.href} className={`ml-4 ${cta.style.base}`}>

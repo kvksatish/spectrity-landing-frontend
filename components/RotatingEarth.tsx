@@ -24,8 +24,32 @@ export default function RotatingEarth() {
   const [labelsData, setLabelsData] = useState<LabelData[]>([]);
   const [pointsData, setPointsData] = useState<PointData[]>([]);
   const [dimensions, setDimensions] = useState({ width: 600, height: 600 });
+  const [webglError, setWebglError] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+    
+    // Check WebGL support
+    const checkWebGLSupport = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) {
+          setWebglError(true);
+          return false;
+        }
+        return true;
+      } catch (e) {
+        setWebglError(true);
+        return false;
+      }
+    };
+
+    if (!checkWebGLSupport()) {
+      return;
+    }
+
     // Function to handle resize
     const handleResize = () => {
       const width = window.innerWidth;
@@ -354,22 +378,58 @@ export default function RotatingEarth() {
     setPointsData(cities);
 
     if (globeEl.current) {
-      // Auto-rotate the globe
-      globeEl.current.controls().autoRotate = true;
-      globeEl.current.controls().autoRotateSpeed = 1;
-      
-      // Disable user controls for a cleaner look
-      globeEl.current.controls().enableZoom = false;
-      globeEl.current.controls().enablePan = false;
-      
-      // Set initial position
-      globeEl.current.pointOfView({ lat: 0, lng: 0, altitude: 2 });
+      try {
+        // Auto-rotate the globe
+        globeEl.current.controls().autoRotate = true;
+        globeEl.current.controls().autoRotateSpeed = 1;
+        
+        // Disable user controls for a cleaner look
+        globeEl.current.controls().enableZoom = false;
+        globeEl.current.controls().enablePan = false;
+        
+        // Set initial position
+        globeEl.current.pointOfView({ lat: 0, lng: 0, altitude: 2 });
+      } catch (error) {
+        console.error('Globe initialization failed:', error);
+        setWebglError(true);
+      }
     }
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Fallback component for when WebGL is not supported
+  const FallbackGlobe = () => (
+    <div className="relative w-full h-full flex items-center justify-center" style={{ backgroundColor: '#fcfcfd' }}>
+      <div className="w-full max-w-[600px] h-full max-h-[600px] flex items-center justify-center">
+        <div className="text-center p-8">
+          <div className="w-48 h-48 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-cyan-500 flex items-center justify-center shadow-2xl">
+            <div className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 flex items-center justify-center">
+              <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">Global Research Network</h3>
+          <p className="text-gray-600 text-sm">
+            AI-powered discovery platform connecting researchers worldwide
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Don't render anything on server side
+  if (!isClient) {
+    return <FallbackGlobe />;
+  }
+
+  // Show fallback if WebGL is not supported
+  if (webglError) {
+    return <FallbackGlobe />;
+  }
 
   return (
     <div className="relative w-full h-full flex items-center justify-center" style={{ backgroundColor: '#fcfcfd' }}>
@@ -401,6 +461,17 @@ export default function RotatingEarth() {
           labelResolution={2}
           width={dimensions.width}
           height={dimensions.height}
+          onGlobeReady={() => {
+            // Additional error handling when globe is ready
+            try {
+              if (globeEl.current) {
+                globeEl.current.pointOfView({ lat: 0, lng: 0, altitude: 2 });
+              }
+            } catch (error) {
+              console.error('Globe ready error:', error);
+              setWebglError(true);
+            }
+          }}
         />
       </div>
     </div>
