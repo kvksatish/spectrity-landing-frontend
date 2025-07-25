@@ -3,6 +3,8 @@
 import Hero from "@/components/Hero";
 import ScientificStack from "@/components/ScientificStack";
 import MarketInsight from "@/components/MarketInsight";
+import TranslationalReadiness from "@/components/TranslationalReadiness";
+import BuildTogether from "@/components/BuildTogether";
 import dynamic from 'next/dynamic';
 
 const RotatingEarth = dynamic(() => import("@/components/RotatingEarth"), {
@@ -120,18 +122,11 @@ export default function Home() {
       {/* Market Insight Agent Section */}
       <MarketInsight />
 
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-blue-50 to-purple-50">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="mb-6 text-4xl font-bold text-gray-900">Partner with Us</h2>
-          <p className="mb-8 text-lg text-gray-700">
-            Join us in revolutionizing healthcare through intelligent molecular design
-          </p>
-          <button className="rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 px-10 py-4 text-lg font-semibold text-white transition-transform hover:scale-105 shadow-lg">
-            Start Collaboration
-          </button>
-        </div>
-      </section>
+      {/* Translational Readiness Agent Section */}
+      <TranslationalReadiness />
+
+      {/* Build Together Section */}
+      <BuildTogether />
 
       {/* Footer */}
       <footer className="border-t border-gray-200 py-8 px-4 bg-white">

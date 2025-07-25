@@ -1,6 +1,15 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.7; // Reduce speed to 50%
+    }
+  }, []);
   return (
     <section className="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
       {/* Animated rotating gradient background */}
@@ -57,6 +66,7 @@ export default function Hero() {
       {/* Video Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
