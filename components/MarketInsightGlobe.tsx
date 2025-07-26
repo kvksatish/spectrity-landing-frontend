@@ -147,23 +147,7 @@ export default function MarketInsightGlobe() {
     // Add resize listener
     window.addEventListener('resize', handleResize);
 
-    if (globeEl.current) {
-      try {
-        // Auto-rotate the globe
-        globeEl.current.controls().autoRotate = true;
-        globeEl.current.controls().autoRotateSpeed = 1;
-        
-        // Disable user controls for a cleaner look
-        globeEl.current.controls().enableZoom = false;
-        globeEl.current.controls().enablePan = false;
-        
-        // Set initial position
-        globeEl.current.pointOfView({ lat: 0, lng: 0, altitude: 2 });
-      } catch (error) {
-        console.error('Market Insight Globe initialization failed:', error);
-        setWebglError(true);
-      }
-    }
+    // Globe controls will be set in onGlobeReady callback
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -314,9 +298,18 @@ export default function MarketInsightGlobe() {
           width={dimensions.width}
           height={dimensions.height}
           onGlobeReady={() => {
-            // Additional error handling when globe is ready
+            // Set up globe controls when ready
             try {
               if (globeEl.current) {
+                // Auto-rotate the globe
+                globeEl.current.controls().autoRotate = true;
+                globeEl.current.controls().autoRotateSpeed = 1;
+                
+                // Disable user controls for a cleaner look
+                globeEl.current.controls().enableZoom = false;
+                globeEl.current.controls().enablePan = false;
+                
+                // Set initial position
                 globeEl.current.pointOfView({ lat: 0, lng: 0, altitude: 2 });
               }
             } catch (error) {
