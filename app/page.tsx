@@ -3,7 +3,6 @@
 import Link from "next/link";
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
-import LazySection from '@/components/LazySection';
 
 // Lazy load Hero with priority loading
 const Hero = dynamic(() => import("@/components/Hero"), {
@@ -121,7 +120,7 @@ export default function Home() {
       
       {/* SpectraScan Agent Section with Globe */}
       <section id="spectrascan" className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 overflow-hidden" style={{backgroundColor: '#fcfcfd'}}>
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl px-2 sm:px-4">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
             {/* Left Content */}
             <div className="space-y-8">
@@ -148,7 +147,7 @@ export default function Home() {
               </div>
               
               <div className="space-y-4 sm:space-y-6">
-                <div className="flex flex-col sm:flex-row gap-4 group hover:transform hover:scale-105 transition-all duration-300">
+                <div className="flex flex-col sm:flex-row gap-4 group sm:hover:transform sm:hover:scale-105 transition-all duration-300">
                   <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-blue-100 p-3 group-hover:bg-blue-200 transition-colors mx-auto sm:mx-0">
                     <svg className="w-full h-full text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -165,7 +164,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 group hover:transform hover:scale-105 transition-all duration-300">
+                <div className="flex flex-col sm:flex-row gap-4 group sm:hover:transform sm:hover:scale-105 transition-all duration-300">
                   <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-purple-100 p-3 group-hover:bg-purple-200 transition-colors mx-auto sm:mx-0">
                     <svg className="w-full h-full text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
@@ -182,7 +181,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 group hover:transform hover:scale-105 transition-all duration-300">
+                <div className="flex flex-col sm:flex-row gap-4 group sm:hover:transform sm:hover:scale-105 transition-all duration-300">
                   <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-cyan-100 p-3 group-hover:bg-cyan-200 transition-colors mx-auto sm:mx-0">
                     <svg className="w-full h-full text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
@@ -211,7 +210,7 @@ export default function Home() {
             </div>
 
             {/* Right Earth Globe */}
-            <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center">
+            <div className="relative h-[400px] md:h-[500px] lg:h-[650px] xl:h-[700px] w-full flex items-center justify-center overflow-hidden">
               <RotatingEarth />
             </div>
           </div>
@@ -219,67 +218,19 @@ export default function Home() {
       </section>
 
       {/* EvalStack Section */}
-      <LazySection
-        fallback={
-          <div className="py-24 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
-            <div className="mx-auto max-w-7xl">
-              <div className="text-center mb-16">
-                <div className="animate-pulse">
-                  <div className="h-12 bg-gray-200 rounded-lg w-64 mx-auto mb-4"></div>
-                  <div className="h-6 bg-gray-200 rounded-lg w-96 mx-auto"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        }
-      >
-        <div id="evalstack">
-          <ScientificStack />
-        </div>
-      </LazySection>
+      <div id="evalstack">
+        <ScientificStack />
+      </div>
 
       {/* Market Insight Agent Section */}
-      <LazySection
-        fallback={
-          <div className="py-24 px-4">
-            <div className="mx-auto max-w-7xl">
-              <div className="animate-pulse grid lg:grid-cols-2 gap-16 items-center">
-                <div className="h-64 bg-gray-200 rounded-lg"></div>
-                <div className="space-y-4">
-                  <div className="h-8 bg-gray-200 rounded-lg w-3/4"></div>
-                  <div className="h-4 bg-gray-200 rounded-lg"></div>
-                  <div className="h-4 bg-gray-200 rounded-lg w-5/6"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        }
-      >
-        <div id="spectrainsight">
-          <MarketInsight />
-        </div>
-      </LazySection>
+      <div id="spectrainsight">
+        <MarketInsight />
+      </div>
 
       {/* Translational Readiness Agent Section */}
-      <LazySection
-        fallback={
-          <div className="py-24 px-4">
-            <div className="mx-auto max-w-7xl">
-              <div className="animate-pulse">
-                <div className="h-12 bg-gray-200 rounded-lg w-64 mx-auto mb-8"></div>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="h-48 bg-gray-200 rounded-xl"></div>
-                  <div className="h-48 bg-gray-200 rounded-xl"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        }
-      >
-        <div id="translational">
-          <TranslationalReadiness />
-        </div>
-      </LazySection>
+      <div id="translational">
+        <TranslationalReadiness />
+      </div>
 
       {/* Summary Section */}
       <section id="summary" className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
@@ -311,24 +262,9 @@ export default function Home() {
       </section>
 
       {/* Contact Form Section */}
-      <LazySection
-        fallback={
-          <div className="py-24 px-4">
-            <div className="mx-auto max-w-7xl">
-              <div className="animate-pulse">
-                <div className="h-12 bg-gray-200 rounded-lg w-96 mx-auto mb-8"></div>
-                <div className="max-w-3xl mx-auto">
-                  <div className="h-96 bg-gray-200 rounded-xl"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        }
-      >
-        <div id="contact">
-          <BuildTogether />
-        </div>
-      </LazySection>
+      <div id="contact">
+        <BuildTogether />
+      </div>
 
       {/* Footer */}
       <footer className="bg-gradient-to-b from-gray-50 to-white border-t border-gray-200">

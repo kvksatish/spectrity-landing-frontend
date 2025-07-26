@@ -48,7 +48,7 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="ml-6 flex items-baseline space-x-4 lg:space-x-6">
               {navigation.map((item) => (
                 <Link 
                   key={item.id} 
@@ -61,7 +61,7 @@ export default function Navbar() {
                   </span>
                 </Link>
               ))}
-              <Link href={cta.href} className={`ml-4 ${cta.style.base}`}>
+              <Link href={cta.href} className={`ml-2 ${cta.style.base}`}>
                 {cta.label}
               </Link>
             </div>

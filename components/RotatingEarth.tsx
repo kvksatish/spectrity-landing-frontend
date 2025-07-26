@@ -23,7 +23,7 @@ export default function RotatingEarth() {
   const globeEl = useRef<any>(null);
   const [labelsData, setLabelsData] = useState<LabelData[]>([]);
   const [pointsData, setPointsData] = useState<PointData[]>([]);
-  const [dimensions, setDimensions] = useState({ width: 600, height: 600 });
+  const [dimensions, setDimensions] = useState({ width: 700, height: 700 });
   const [webglError, setWebglError] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
@@ -54,13 +54,15 @@ export default function RotatingEarth() {
     const handleResize = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        setDimensions({ width: 400, height: 400 });
+        setDimensions({ width: 380, height: 380 });
       } else if (width < 768) {
-        setDimensions({ width: 450, height: 450 });
+        setDimensions({ width: 480, height: 480 });
       } else if (width < 1024) {
-        setDimensions({ width: 500, height: 500 });
+        setDimensions({ width: 620, height: 620 });
+      } else if (width < 1280) {
+        setDimensions({ width: 650, height: 650 });
       } else {
-        setDimensions({ width: 600, height: 600 });
+        setDimensions({ width: 700, height: 700 });
       }
     };
 
@@ -433,7 +435,7 @@ export default function RotatingEarth() {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center" style={{ backgroundColor: '#fcfcfd' }}>
-      <div className="w-full max-w-[600px] h-full max-h-[600px]">
+      <div className="w-full max-w-[600px] h-full max-h-[600px] flex items-center justify-center">
         <Globe
           ref={globeEl}
           globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
