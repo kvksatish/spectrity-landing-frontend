@@ -459,8 +459,8 @@ export default function RotatingEarth() {
                 globeEl.current.controls().enableZoom = false;
                 globeEl.current.controls().enablePan = false;
                 
-                // Set initial position
-                globeEl.current.pointOfView({ lat: 0, lng: 0, altitude: 2 });
+                // Set initial position (higher altitude = more zoomed out)
+                globeEl.current.pointOfView({ lat: 0, lng: 0, altitude: 2.5 });
               }
             } catch (error) {
               console.error('Globe ready error:', error);

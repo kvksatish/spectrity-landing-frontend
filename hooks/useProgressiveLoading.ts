@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 export function useProgressiveLoading() {
   const [loadingStage, setLoadingStage] = useState(0);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     // Stage 0: Initial loading screen (3 seconds)
@@ -28,7 +29,13 @@ export function useProgressiveLoading() {
 
     const stage5Timer = setTimeout(() => {
       setLoadingStage(5);
-      setIsInitialLoading(false);
+      // Start transition out of loading screen
+      setIsTransitioning(true);
+      
+      // Remove loading screen after fade out
+      setTimeout(() => {
+        setIsInitialLoading(false);
+      }, 800);
     }, 5500);
 
     return () => {
@@ -43,6 +50,7 @@ export function useProgressiveLoading() {
   return {
     loadingStage,
     isInitialLoading,
+    isTransitioning,
     shouldLoadHero: loadingStage >= 1,
     shouldLoadSpectraScan: loadingStage >= 1,
     shouldLoadEvalStack: loadingStage >= 2,

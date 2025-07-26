@@ -42,6 +42,7 @@ const BuildTogether = dynamic(() => import("@/components/BuildTogether"), {
 export default function Home() {
   const {
     isInitialLoading,
+    isTransitioning,
     shouldLoadHero,
     shouldLoadSpectraScan,
     shouldLoadEvalStack,
@@ -52,11 +53,15 @@ export default function Home() {
 
   // Show loading screen during initial load
   if (isInitialLoading) {
-    return <LoadingScreen />;
+    return (
+      <div className={`${isTransitioning ? 'opacity-0' : 'opacity-100'} transition-opacity duration-800 ease-out`}>
+        <LoadingScreen />
+      </div>
+    );
   }
 
   return (
-    <main id="top">
+    <main id="top" className="opacity-0 animate-fade-in" style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}>
       {/* Hero Section */}
       {shouldLoadHero ? (
         <Suspense fallback={
