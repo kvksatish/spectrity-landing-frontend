@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "Spectrity - Empowering Digital Transformation",
   description: "Spectrity provides cutting-edge solutions for your digital transformation journey with lightning-fast performance, enterprise-grade security, and cloud-native architecture.",
   keywords: "Spectrity, digital transformation, cloud solutions, enterprise software",
+  icons: {
+    icon: "https://assets.spectrity.bio/double helix.png",
+    apple: "https://assets.spectrity.bio/double helix.png",
+  },
   authors: [{ name: "Spectrity Team" }],
   openGraph: {
     title: "Spectrity - Empowering Digital Transformation",
