@@ -1,7 +1,7 @@
 {
   "logo": {
-    "image": "https://spectrity.bio/public/double%20helix.png",
-    "title": "https://spectrity.bio/public/final%20title.png",
+    "image": "/double helix.png",
+    "title": "/final title.png",
     "text": "Spectrity.bio",
     "href": "#top"
   },

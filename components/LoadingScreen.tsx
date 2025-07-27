@@ -50,7 +50,7 @@ export default function LoadingScreen() {
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <Image 
-                  src="https://spectrity.bio/public/double%20helix.png" 
+                  src="/double helix.png" 
                   alt="Spectrity Logo" 
                   width={80} 
                   height={80}
@@ -65,7 +65,7 @@ export default function LoadingScreen() {
               
               <div className="flex flex-col">
                 <Image 
-                  src="https://spectrity.bio/public/final%20title.png" 
+                  src="/final title.png" 
                   alt="Spectrity.bio"
                   width={300} 
                   height={80}

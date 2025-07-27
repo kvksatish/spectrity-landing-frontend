@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:static": "cp next.config.static.ts next.config.ts && next build && cp next.config.ts.bak next.config.ts 2>/dev/null || true",
+    "build:r2": "cp next.config.ts next.config.ts.bak && cp next.config.static.ts next.config.ts && next build && mv next.config.ts.bak next.config.ts",
+    "deploy:r2": "./build-r2.sh",
     "start": "next start",
     "lint": "next lint"
   },

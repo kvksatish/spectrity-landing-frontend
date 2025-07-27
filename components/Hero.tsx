@@ -111,7 +111,7 @@ export default function Hero() {
             onError={(e) => console.error("Video failed to load:", e)}
             preload="none"
           >
-            <source src="https://spectrity.bio/public/landing%20page%20spirall.mp4" type="video/mp4" />
+            <source src="/landing page spirall.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-br from-slate-50/70 via-blue-50/70 to-indigo-100/70"></div>
         </div>

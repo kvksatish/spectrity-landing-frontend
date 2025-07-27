@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    unoptimized: true, // Required for static export
     remotePatterns: [
       {
         protocol: 'https',
@@ -34,12 +35,16 @@ const nextConfig: NextConfig = {
   // Performance optimizations
   poweredByHeader: false,
   compress: true,
-  // Enable standalone output for Docker
-  output: 'standalone',
   
-  // Static export configuration for R2 deployment
+  // Static export configuration for build storage
+  output: 'export',
   trailingSlash: true,
-  distDir: '.next',
+  distDir: 'out',
+  
+  // Disable features not supported in static export
+  typescript: {
+    ignoreBuildErrors: false,
+  },
 };
 
 export default nextConfig;

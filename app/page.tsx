@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useProgressiveLoading } from '@/hooks/useProgressiveLoading';
 import LoadingScreen from '@/components/LoadingScreen';
 import { 
@@ -50,6 +50,13 @@ export default function Home() {
     shouldLoadTranslational,
     shouldLoadContact,
   } = useProgressiveLoading();
+
+  useEffect(() => {
+    console.log('🌐 User accessed Spectrity.bio at:', new Date().toISOString());
+    console.log('📍 Page URL:', window.location.href);
+    console.log('🔗 Referrer:', document.referrer || 'direct');
+    console.log('🖥️ User Agent:', navigator.userAgent);
+  }, []);
 
   // Show loading screen during initial load
   if (isInitialLoading) {
