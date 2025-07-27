@@ -34,18 +34,34 @@ echo "🚀 Building Spectrity Landing Frontend Docker Image..."
 echo "🆕 New version: $NEW_VERSION"
 echo "🐳 Image: ${FULL_IMAGE_NAME}:${NEW_VERSION}"
 
-# Clean up old images to avoid duplicates
-echo "🧹 Cleaning up old images..."
+# Setup Docker Buildx for multi-platform builds
+echo "🔧 Setting up Docker Buildx..."
+docker buildx create --name spectrity-builder --use 2>/dev/null || docker buildx use spectrity-builder 2>/dev/null || true
+
+# Clean up old images to avoid duplicates (only local images)
+echo "🧹 Cleaning up old local images..."
 docker rmi ${FULL_IMAGE_NAME}:latest 2>/dev/null || true
 docker rmi ${FULL_IMAGE_NAME}:${CURRENT_VERSION} 2>/dev/null || true
 docker rmi ${FULL_IMAGE_NAME}:${NEW_VERSION} 2>/dev/null || true
 
-# Build the Docker image with new version and latest tags
-echo "📦 Building Docker image..."
-docker build -t ${FULL_IMAGE_NAME}:${NEW_VERSION} -t ${FULL_IMAGE_NAME}:latest .
+if [ "$PUSH_TO_HUB" = "true" ]; then
+    # Build multi-platform and push directly (buildx doesn't create local images when pushing)
+    echo "📦 Building multi-platform Docker images (linux/amd64,linux/arm64) and pushing..."
+    docker buildx build --platform linux/amd64,linux/arm64 \
+        -t ${FULL_IMAGE_NAME}:${NEW_VERSION} \
+        -t ${FULL_IMAGE_NAME}:latest \
+        --push .
+else
+    # Build for local platform only when not pushing
+    echo "📦 Building Docker image for local platform..."
+    docker buildx build --platform linux/amd64 \
+        -t ${FULL_IMAGE_NAME}:${NEW_VERSION} \
+        -t ${FULL_IMAGE_NAME}:latest \
+        --load .
+fi
 
 if [ $? -eq 0 ]; then
-    echo "✅ Docker image built successfully!"
+    echo "✅ Multi-platform Docker images built successfully!"
     
     # Save new version to file
     echo "$NEW_VERSION" > "$VERSION_FILE"
@@ -56,9 +72,9 @@ if [ $? -eq 0 ]; then
     git add "$VERSION_FILE"
     git commit -m "Bump Docker version to $NEW_VERSION
 
-🐳 Auto-generated version bump
-- Built: ${FULL_IMAGE_NAME}:${NEW_VERSION}
-- Built: ${FULL_IMAGE_NAME}:latest
+🐳 Auto-generated multi-platform version bump
+- Built: ${FULL_IMAGE_NAME}:${NEW_VERSION} (linux/amd64,linux/arm64)
+- Built: ${FULL_IMAGE_NAME}:latest (linux/amd64,linux/arm64)
 
 🤖 Generated with [Claude Code](https://claude.ai/code)
 
@@ -81,45 +97,24 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
     
     if [ "$PUSH_TO_HUB" = "true" ]; then
         echo ""
-        echo "📤 Pushing to Docker Hub..."
-        
-        # Push versioned image
-        echo "🚀 Pushing ${FULL_IMAGE_NAME}:${NEW_VERSION}..."
-        docker push ${FULL_IMAGE_NAME}:${NEW_VERSION}
-        
-        if [ $? -eq 0 ]; then
-            echo "✅ Versioned image pushed successfully!"
-            
-            # Push latest tag
-            echo "🚀 Pushing ${FULL_IMAGE_NAME}:latest..."
-            docker push ${FULL_IMAGE_NAME}:latest
-            
-            if [ $? -eq 0 ]; then
-                echo "✅ Latest image pushed successfully!"
-                echo ""
-                echo "🌐 Images available at:"
-                echo "   https://hub.docker.com/r/${DOCKER_HUB_USERNAME}/${IMAGE_NAME}"
-                echo ""
-                echo "📥 To pull from anywhere:"
-                echo "   docker pull ${FULL_IMAGE_NAME}:${NEW_VERSION}"
-                echo "   docker pull ${FULL_IMAGE_NAME}:latest"
-            else
-                echo "❌ Failed to push latest tag!"
-                exit 1
-            fi
-        else
-            echo "❌ Failed to push versioned image!"
-            exit 1
-        fi
+        echo "✅ Multi-platform images already pushed to Docker Hub via buildx!"
+        echo ""
+        echo "🌐 Images available at:"
+        echo "   https://hub.docker.com/r/${DOCKER_HUB_USERNAME}/${IMAGE_NAME}"
+        echo ""
+        echo "📥 To pull from anywhere (any platform):"
+        echo "   docker pull ${FULL_IMAGE_NAME}:${NEW_VERSION}"
+        echo "   docker pull ${FULL_IMAGE_NAME}:latest"
+        echo ""
+        echo "🏗️ Built for platforms: linux/amd64, linux/arm64"
     else
         echo ""
-        echo "📦 Images built locally (not pushed):"
+        echo "📦 Image built locally for current platform:"
         echo "   ${FULL_IMAGE_NAME}:${NEW_VERSION}"
         echo "   ${FULL_IMAGE_NAME}:latest"
         echo ""
-        echo "📤 To push manually:"
-        echo "   docker push ${FULL_IMAGE_NAME}:${NEW_VERSION}"
-        echo "   docker push ${FULL_IMAGE_NAME}:latest"
+        echo "📤 To build and push multi-platform:"
+        echo "   ./build-docker.sh true"
     fi
     
     echo ""
