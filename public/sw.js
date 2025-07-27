@@ -1,8 +1,8 @@
 const CACHE_NAME = 'spectrity-v1';
 const urlsToCache = [
   '/',
-  '/double helix.png',
-  '/final title.png',
+  'https://spectrity.bio/public/double%20helix.png',
+  'https://spectrity.bio/public/final%20title.png',
   // Add other static assets
 ];
 
@@ -19,8 +19,9 @@ self.addEventListener('fetch', (event) => {
   // Only cache GET requests
   if (event.request.method !== 'GET') return;
   
-  // Skip cross-origin requests
-  if (!event.request.url.startsWith(self.location.origin)) return;
+  // Skip cross-origin requests except for our assets domain
+  const isAssetsDomain = event.request.url.startsWith('https://spectrity.bio/public/');
+  if (!event.request.url.startsWith(self.location.origin) && !isAssetsDomain) return;
   
   event.respondWith(
     caches.match(event.request)
