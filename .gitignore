@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Docker version tracking (keep this tracked in git)
+# version.txt should be committed to preserve version across builds
