@@ -51,6 +51,34 @@ if [ $? -eq 0 ]; then
     echo "$NEW_VERSION" > "$VERSION_FILE"
     echo "💾 Version saved to $VERSION_FILE"
     
+    # Auto-commit and push version change
+    echo "📝 Committing version change to git..."
+    git add "$VERSION_FILE"
+    git commit -m "Bump Docker version to $NEW_VERSION
+
+🐳 Auto-generated version bump
+- Built: ${FULL_IMAGE_NAME}:${NEW_VERSION}
+- Built: ${FULL_IMAGE_NAME}:latest
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+    
+    if [ $? -eq 0 ]; then
+        echo "✅ Version committed to git"
+        
+        echo "🚀 Pushing version change to repository..."
+        git push
+        
+        if [ $? -eq 0 ]; then
+            echo "✅ Version change pushed to repository"
+        else
+            echo "⚠️  Warning: Failed to push to repository (but Docker build continues)"
+        fi
+    else
+        echo "⚠️  Warning: Failed to commit version change (but Docker build continues)"
+    fi
+    
     if [ "$PUSH_TO_HUB" = "true" ]; then
         echo ""
         echo "📤 Pushing to Docker Hub..."
