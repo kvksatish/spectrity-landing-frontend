@@ -15,17 +15,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Spectrity - Empowering Digital Transformation",
-  description: "Spectrity provides cutting-edge solutions for your digital transformation journey with lightning-fast performance, enterprise-grade security, and cloud-native architecture.",
-  keywords: "Spectrity, digital transformation, cloud solutions, enterprise software",
+  title: "Spectrity - AI-Powered Programmable Therapeutics",
+  description: "Spectrity.bio fuses biology with AI to create programmable therapeutics, accelerating drug development while saving time, money, and lives through our revolutionary EvalStack platform.",
+  keywords: "Spectrity, AI drug discovery, programmable therapeutics, biotechnology, EvalStack, clinical translation, pharmaceutical AI, drug development",
   icons: {
     icon: "https://assets.spectrity.bio/double helix.png",
     apple: "https://assets.spectrity.bio/double helix.png",
   },
   authors: [{ name: "Spectrity Team" }],
   openGraph: {
-    title: "Spectrity - Empowering Digital Transformation",
-    description: "Cutting-edge solutions for your digital transformation journey",
+    title: "Spectrity - AI-Powered Programmable Therapeutics",
+    description: "Fusing biology with AI to revolutionize drug discovery and development",
     type: "website",
   },
 };
